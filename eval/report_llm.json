@@ -1,0 +1,270 @@
+{
+  "generated_at": "2026-11-09T11:10:39.508267+00:00",
+  "dataset": "eval/questions.json",
+  "engine": {
+    "extractive-fallback": 2,
+    "llm": 9
+  },
+  "totals": {
+    "questions": 11,
+    "passed": 11,
+    "accuracy": 1.0,
+    "answerable": 9,
+    "answerable_passed": 9,
+    "not_found": 2,
+    "not_found_passed": 2,
+    "citations_returned": 9,
+    "citations_verified": 9,
+    "citation_verify_rate": 1.0,
+    "citations_dropped": 0,
+    "pages_read": 14
+  },
+  "questions": [
+    {
+      "id": "wiki-creator",
+      "request": "Who created the Python programming language?",
+      "start_urls": [
+        "https://en.wikipedia.org/wiki/Python_(programming_language)"
+      ],
+      "expected": [
+        "Guido van Rossum"
+      ],
+      "passed": true,
+      "answer": "Python was conceived in the late 1980s by Guido van Rossum at Centrum Wiskunde & Informatica (CWI) in the Netherlands .",
+      "citations": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Python_(programming_language)",
+          "quote": "Python was conceived in the late 1980s by Guido van Rossum at Centrum Wiskunde & Informatica (CWI) in the Netherlands ."
+        }
+      ],
+      "citations_found": 1,
+      "citations_dropped": 0,
+      "pages_read": 1,
+      "engine": "extractive-fallback",
+      "verified": true,
+      "fallback_reason": "unverified-llm-citation"
+    },
+    {
+      "id": "wiki-released",
+      "request": "When was Python first released?",
+      "start_urls": [
+        "https://en.wikipedia.org/wiki/Python_(programming_language)"
+      ],
+      "expected": [
+        "1991"
+      ],
+      "passed": true,
+      "answer": "Python was first released in 1991 as Python 0.9.0.",
+      "citations": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Python_(programming_language)",
+          "quote": "Van Rossum first released it in 1991 as Python 0.9.0."
+        }
+      ],
+      "citations_found": 1,
+      "citations_dropped": 0,
+      "pages_read": 1,
+      "engine": "llm",
+      "verified": true
+    },
+    {
+      "id": "wiki-license",
+      "request": "What license is Python released under?",
+      "start_urls": [
+        "https://en.wikipedia.org/wiki/Python_(programming_language)"
+      ],
+      "expected": [
+        "Python Software Foundation License"
+      ],
+      "passed": true,
+      "answer": "Python Software Foundation License",
+      "citations": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Python_(programming_language)",
+          "quote": "License Python Software Foundation License"
+        }
+      ],
+      "citations_found": 1,
+      "citations_dropped": 0,
+      "pages_read": 1,
+      "engine": "llm",
+      "verified": true
+    },
+    {
+      "id": "json-stand",
+      "request": "What does JSON stand for?",
+      "start_urls": [
+        "https://docs.python.org/3/library/json.html"
+      ],
+      "expected": [
+        "JavaScript Object Notation"
+      ],
+      "passed": true,
+      "answer": "JSON stands for JavaScript Object Notation.",
+      "citations": [
+        {
+          "url": "https://docs.python.org/3/library/json.html",
+          "quote": "JSON (JavaScript Object Notation)"
+        }
+      ],
+      "citations_found": 1,
+      "citations_dropped": 0,
+      "pages_read": 1,
+      "engine": "llm",
+      "verified": true
+    },
+    {
+      "id": "json-spec",
+      "request": "What is the JSON format specified by?",
+      "start_urls": [
+        "https://docs.python.org/3/library/json.html"
+      ],
+      "expected": [
+        "RFC 7159"
+      ],
+      "passed": true,
+      "answer": "JSON (JavaScript Object Notation) , specified by RFC 7159 (which obsoletes RFC 4627 ) and by ECMA-404 , is a lightweight data interchange format inspired by JavaScript object literal syntax (although it is not a strict subset of JavaScript ).",
+      "citations": [
+        {
+          "url": "https://docs.python.org/3/library/json.html",
+          "quote": "JSON (JavaScript Object Notation) , specified by RFC 7159 (which obsoletes RFC 4627 ) and by ECMA-404 , is a lightweight data interchange format inspired by JavaScript object literal syntax (although it is not a strict subset of JavaScript )."
+        }
+      ],
+      "citations_found": 1,
+      "citations_dropped": 0,
+      "pages_read": 1,
+      "engine": "extractive-fallback",
+      "verified": true,
+      "fallback_reason": "unverified-llm-citation"
+    },
+    {
+      "id": "json-error",
+      "request": "What exception is raised when JSON cannot be decoded?",
+      "start_urls": [
+        "https://docs.python.org/3/library/json.html"
+      ],
+      "expected": [
+        "JSONDecodeError"
+      ],
+      "passed": true,
+      "answer": "JSONDecodeError",
+      "citations": [
+        {
+          "url": "https://docs.python.org/3/library/json.html",
+          "quote": "Raises : JSONDecodeError – When the data being deserialized is not a valid JSON document."
+        }
+      ],
+      "citations_found": 1,
+      "citations_dropped": 0,
+      "pages_read": 1,
+      "engine": "llm",
+      "verified": true
+    },
+    {
+      "id": "rfc-port",
+      "request": "What is the default port for the HTTP protocol?",
+      "start_urls": [
+        "https://www.ietf.org/rfc/rfc2616.txt"
+      ],
+      "expected": [
+        "80"
+      ],
+      "passed": true,
+      "answer": "The default port is TCP 80.",
+      "citations": [
+        {
+          "url": "https://www.rfc-editor.org/rfc/rfc2616.txt",
+          "quote": "The default port is TCP 80"
+        }
+      ],
+      "citations_found": 1,
+      "citations_dropped": 0,
+      "pages_read": 1,
+      "engine": "llm",
+      "verified": true
+    },
+    {
+      "id": "rfc-404",
+      "request": "What does the 404 status code mean?",
+      "start_urls": [
+        "https://www.ietf.org/rfc/rfc2616.txt"
+      ],
+      "expected": [
+        "Not Found"
+      ],
+      "passed": true,
+      "answer": "The 404 status code means the server has not found anything matching the Request-URI.",
+      "citations": [
+        {
+          "url": "https://www.rfc-editor.org/rfc/rfc2616.txt",
+          "quote": "The server has not found anything matching the Request-URI."
+        }
+      ],
+      "citations_found": 1,
+      "citations_dropped": 0,
+      "pages_read": 1,
+      "engine": "llm",
+      "verified": true
+    },
+    {
+      "id": "multipage-pickle",
+      "request": "What is pickle used for?",
+      "start_urls": [
+        "https://docs.python.org/3/library/json.html"
+      ],
+      "expected": [
+        "class instances",
+        "object structure"
+      ],
+      "passed": true,
+      "answer": "Pickle is used for serializing and de-serializing a Python object structure, converting a Python object hierarchy into a byte stream and back.",
+      "citations": [
+        {
+          "url": "https://docs.python.org/3/library/pickle.html",
+          "quote": "The pickle module implements binary protocols for serializing and de-serializing a Python object structure. “Pickling” is the process whereby a Python object hierarchy is converted into a byte stream, and “unpickling” is the inverse operation, whereby a byte stream (from a binary file or bytes-like object ) is converted back into an object hierarchy."
+        }
+      ],
+      "citations_found": 1,
+      "citations_dropped": 0,
+      "pages_read": 4,
+      "engine": "llm",
+      "verified": true
+    },
+    {
+      "id": "notfound-wiki",
+      "request": "What is the refund window for annual plans?",
+      "start_urls": [
+        "https://en.wikipedia.org/wiki/Python_(programming_language)"
+      ],
+      "expected": [
+        "not found"
+      ],
+      "passed": true,
+      "answer": "Not found on the pages read",
+      "citations": [],
+      "citations_found": 0,
+      "citations_dropped": 0,
+      "pages_read": 1,
+      "engine": "llm",
+      "verified": true
+    },
+    {
+      "id": "notfound-json",
+      "request": "Who won the 2018 FIFA World Cup?",
+      "start_urls": [
+        "https://docs.python.org/3/library/json.html"
+      ],
+      "expected": [
+        "not found"
+      ],
+      "passed": true,
+      "answer": "Not found on the pages read",
+      "citations": [],
+      "citations_found": 0,
+      "citations_dropped": 0,
+      "pages_read": 1,
+      "engine": "llm",
+      "verified": true
+    }
+  ]
+}

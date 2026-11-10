@@ -1,0 +1,94 @@
+{
+  "name": "match4-eval",
+  "version": 1,
+  "questions": [
+    {
+      "id": "wiki-creator",
+      "request": "Who created the Python programming language?",
+      "start_urls": ["https://en.wikipedia.org/wiki/Python_(programming_language)"],
+      "max_pages": 1,
+      "max_depth": 0,
+      "expect_any": ["Guido van Rossum"]
+    },
+    {
+      "id": "wiki-released",
+      "request": "When was Python first released?",
+      "start_urls": ["https://en.wikipedia.org/wiki/Python_(programming_language)"],
+      "max_pages": 1,
+      "max_depth": 0,
+      "expect_any": ["1991"]
+    },
+    {
+      "id": "wiki-license",
+      "request": "What license is Python released under?",
+      "start_urls": ["https://en.wikipedia.org/wiki/Python_(programming_language)"],
+      "max_pages": 1,
+      "max_depth": 0,
+      "expect_any": ["Python Software Foundation License"]
+    },
+    {
+      "id": "json-stand",
+      "request": "What does JSON stand for?",
+      "start_urls": ["https://docs.python.org/3/library/json.html"],
+      "max_pages": 1,
+      "max_depth": 0,
+      "expect_any": ["JavaScript Object Notation"]
+    },
+    {
+      "id": "json-spec",
+      "request": "What is the JSON format specified by?",
+      "start_urls": ["https://docs.python.org/3/library/json.html"],
+      "max_pages": 1,
+      "max_depth": 0,
+      "expect_any": ["RFC 7159"]
+    },
+    {
+      "id": "json-error",
+      "request": "What exception is raised when JSON cannot be decoded?",
+      "start_urls": ["https://docs.python.org/3/library/json.html"],
+      "max_pages": 1,
+      "max_depth": 0,
+      "expect_any": ["JSONDecodeError"]
+    },
+    {
+      "id": "rfc-port",
+      "request": "What is the default port for the HTTP protocol?",
+      "start_urls": ["https://www.ietf.org/rfc/rfc2616.txt"],
+      "max_pages": 1,
+      "max_depth": 0,
+      "expect_any": ["80"]
+    },
+    {
+      "id": "rfc-404",
+      "request": "What does the 404 status code mean?",
+      "start_urls": ["https://www.ietf.org/rfc/rfc2616.txt"],
+      "max_pages": 1,
+      "max_depth": 0,
+      "expect_any": ["Not Found"]
+    },
+    {
+      "id": "multipage-pickle",
+      "request": "What is pickle used for?",
+      "start_urls": ["https://docs.python.org/3/library/json.html"],
+      "max_pages": 4,
+      "max_depth": 1,
+      "expect_any": ["class instances", "object structure"]
+    },
+    {
+      "id": "notfound-wiki",
+      "request": "What is the refund window for annual plans?",
+      "start_urls": ["https://en.wikipedia.org/wiki/Python_(programming_language)"],
+      "max_pages": 1,
+      "max_depth": 0,
+      "expect_not_found": true
+    },
+    {
+      "id": "notfound-json",
+      "request": "Who won the 2018 FIFA World Cup?",
+      "start_urls": ["https://docs.python.org/3/library/json.html"],
+      "max_pages": 1,
+      "max_depth": 0,
+      "expect_not_found": true
+    }
+  ]
+}
