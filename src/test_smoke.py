@@ -163,6 +163,31 @@ class CrawlTests(unittest.TestCase):
                       max_pages=3, max_depth=1)
         self.assertEqual(len(pages), 1)
 
+    def test_trace_records_navigation(self) -> None:
+        trace: list[dict] = []
+        crawl(["https://clinic.test/pricing"], fetcher=fake_fetch,
+              max_pages=3, max_depth=1, request="refund policy", trace=trace)
+        urls = [step["url"] for step in trace]
+        self.assertEqual(urls[0], "https://clinic.test/pricing")
+        self.assertIn("https://clinic.test/refunds", urls)
+        first = trace[0]
+        self.assertEqual(first["depth"], 0)
+        self.assertEqual(first["outcome"], "read")
+        self.assertGreater(first["chars"], 0)
+        self.assertGreater(first["links_queued"], 0)
+        follower = next(s for s in trace if s["url"].endswith("/refunds"))
+        self.assertEqual(follower["depth"], 1)
+        self.assertIn("link_score", follower)
+
+    def test_trace_records_fetch_failure(self) -> None:
+        def broken(url: str) -> Page:
+            raise ValueError("offline")
+
+        trace: list[dict] = []
+        crawl(["https://clinic.test/x"], fetcher=broken, trace=trace)
+        self.assertEqual(trace[0]["outcome"], "failed")
+        self.assertEqual(trace[0]["error"], "ValueError")
+
 
 class AgentTests(unittest.TestCase):
     def test_answers_with_verified_citation(self) -> None:

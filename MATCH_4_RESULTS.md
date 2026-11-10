@@ -14,8 +14,8 @@ AMD Token Lab (`DeepSeek-V4-Flash`) · dataset: `eval/questions.json` · evidenc
 | Citations verified verbatim | **9/9 (100%)**, 0 dropped |
 | "Not found" path | **2/2**, zero citations, no invented answer |
 | Multi-page | **4 pages read**, answer + quote from a linked page (`pickle.html`) |
-| Offline tests | **22 passed** |
-| Live LLM run (Token Lab) | **11/11**, 9/9 citations, 0 dropped (8 `llm` + 3 grounded fallbacks) |
+| Offline tests | **24 passed** |
+| Live LLM run (Token Lab) | **11/11**, 9/9 citations, 0 dropped (9 `llm` + 2 grounded fallbacks) |
 | Network-free rerun | `python3 eval/run_eval.py --offline` reproduces the report from cache |
 
 Raw result table:
@@ -73,6 +73,28 @@ python3 src/web_retrieval_agent.py \
 - citation URL: `https://docs.python.org/3/library/pickle.html`
 - quote verified against the fetched page.
 
+## Navigation trace (auditable crawl)
+
+Every result now carries `steps` and `pages`, so the traversal is visible
+instead of implied. From `demo/multipage_pickle.json`:
+
+```json
+"steps": [
+  {"url": "https://docs.python.org/3/library/json.html", "depth": 0,
+   "outcome": "read", "chars": 25007, "links_queued": 36},
+  {"url": "https://docs.python.org/3/library/pickle.html", "depth": 1,
+   "outcome": "read", "chars": 43877, "link_score": 0.7},
+  {"url": "https://docs.python.org/3/contents.html", "depth": 1,
+   "outcome": "read", "chars": 97229, "link_score": 0.0},
+  {"url": "https://docs.python.org/3/library/email.iterators.html",
+   "depth": 1, "outcome": "read", "chars": 2080, "link_score": 0.0}
+]
+```
+
+Redirects are recorded too: RFC 2616 is fetched from `ietf.org` and cited at
+`rfc-editor.org` (`url` vs `final_url`). Failed fetches appear as
+`"outcome": "failed"` with the exception type, so a silent skip is impossible.
+
 ## Live LLM run (AMD Token Lab)
 
 ```bash
@@ -83,7 +105,7 @@ python3 eval/run_eval.py --report eval/report_llm.json
 - Endpoint `https://api.tokenlab.amd.com/v1`, model `DeepSeek-V4-Flash`
   (10-point/30-day key, 20 req/min; 429/5xx are retried).
 - Result: **11/11**, citations **9/9** verified, 0 dropped, 14 pages.
-- 8 questions answered by `llm`; 3 fell back to the extractive engine when the
+- 9 questions answered by `llm`; 2 fell back to the extractive engine when the
   model's quote did not verify verbatim (`fallback_reason:
   "unverified-llm-citation"`), so no hallucinated citation ships.
 - RFC 2616 answers work because long pages are sampled by query-relevant
@@ -124,23 +146,27 @@ fails verbatim verification.
   answers survive a 6000-character prompt budget.
 - Hybrid grounding: if the LLM cites text that does not verify verbatim, the
   extractive engine re-answers instead of shipping a fake quote.
-- 11 new offline tests (22 total), including excerpt selection and 5xx retry.
+- 11 new offline tests (24 total), including excerpt selection and 5xx retry.
+- Navigation trace in every result (`steps` + `pages`): URL, depth, final URL
+  after redirects, fetched size, links queued, link score, and failed fetches.
 
 ## Still needs the human / AMD notebook
 
 These cannot be done from this repo session:
 
 - Lablab enrollment, onboarding, `$100` credits, course ladder, both Discords.
-- Read the **exact Match 4 submission format** in Discord / the AMD notebook
-  (the public page is only one line).
-- Run once inside `notebooks.amd.com/hackathon` on the ROCm node and save the
-  output JSON to `/persistent` or `/workspace` per the redirected URL.
+- Submission format confirmed from the lablab dashboard: create a **solo team**
+  (name/description/cover) -> team dashboard -> **submission form** step 1
+  (title, long description, categories, technologies) -> step 2 (GitHub repo
+  URL, additional information).
+- Repo must be public; the current git remote is private, so the entry is
+  exported to a standalone public repo before submitting.
 - Submit while the match is live and screenshot the confirmation.
 
 ## Honest limitation
 
 The eval is 11 questions over 3 stable sites. It proves citation discipline,
 the not-found gate, redirect/encoding handling, and multi-page retrieval; it is
-not a claim of open-domain accuracy. The live Token Lab run passes 11/11, but 3
+not a claim of open-domain accuracy. The live Token Lab run passes 11/11, but 2
 of those answers come from the grounded extractive fallback, not from the model.
 The 10-point key lasts 30 days, so the demo should not be re-run casually.

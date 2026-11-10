@@ -530,17 +530,19 @@ def crawl(
     max_pages: int = 3,
     max_depth: int = 1,
     request: str | None = None,
+    trace: list[dict] | None = None,
 ) -> list[Page]:
     allowed = {urlparse(url).netloc.lower() for url in start_urls}
     terms = keywords(request) if request else set()
     seen: set[str] = set()
     pages: list[Page] = []
+    steps = trace if trace is not None else []
     queue: list[tuple[float, str, int]] = [
         (float("inf"), url, 0) for url in start_urls
     ]
     while queue and len(pages) < max_pages:
         queue.sort(key=lambda row: row[0], reverse=True)
-        _, url, depth = queue.pop(0)
+        priority, url, depth = queue.pop(0)
         key = _url_key(url)
         if key in seen or urlparse(url).netloc.lower() not in allowed:
             continue
@@ -549,16 +551,34 @@ def crawl(
         seen.add(key)
         try:
             page = fetcher(url)
-        except (urllib.error.URLError, ValueError, OSError, UnicodeError):
+        except (urllib.error.URLError, ValueError, OSError, UnicodeError) as exc:
+            steps.append({
+                "url": url,
+                "depth": depth,
+                "outcome": "failed",
+                "error": type(exc).__name__,
+            })
             continue
-        pages.append(page)
+        queued = 0
         if depth < max_depth and \
                 urlparse(page.final_url).netloc.lower() in allowed:
             for link, text in extract_links_with_text(page.html,
                                                       page.final_url):
                 if _url_key(link) not in seen:
-                    priority = _link_priority(link, text, terms)
-                    queue.append((priority, link, depth + 1))
+                    link_score = _link_priority(link, text, terms)
+                    queue.append((link_score, link, depth + 1))
+                    queued += 1
+        pages.append(page)
+        steps.append({
+            "url": url,
+            "final_url": page.final_url,
+            "depth": depth,
+            "outcome": "read",
+            "chars": len(page.text),
+            "links_queued": queued,
+            **({"link_score": round(priority, 3)}
+               if priority != float("inf") else {}),
+        })
     return pages
 
 
@@ -806,12 +826,14 @@ class Agent:
         self.max_depth = max_depth
 
     def run(self, request: str, start_urls: Sequence[str]) -> dict:
+        steps: list[dict] = []
         pages = crawl(
             start_urls,
             fetcher=self.fetcher,
             max_pages=self.max_pages,
             max_depth=self.max_depth,
             request=request,
+            trace=steps,
         )
         if not pages:
             return {
@@ -823,6 +845,8 @@ class Agent:
                 "pages_read": 0,
                 "engine": self.answerer.name,
                 "verified": True,
+                "steps": steps,
+                "pages": [],
             }
         try:
             result = self.answerer.answer(request, pages)
@@ -853,6 +877,12 @@ class Agent:
             "pages_read": len(pages),
             "engine": result.get("engine", self.answerer.name),
             "verified": len(citations) == len(raw_citations),
+            "steps": steps,
+            "pages": [
+                {"url": page.url, "final_url": page.final_url,
+                 "chars": len(page.text)}
+                for page in pages
+            ],
             **({"fallback_reason": result["fallback_reason"]}
                if "fallback_reason" in result else {}),
         }

@@ -1,0 +1,27 @@
+{
+  "request": "What is the refund window for annual plans?",
+  "answer": "Not found on the pages read.",
+  "citations": [],
+  "citations_found": 0,
+  "citations_dropped": 0,
+  "pages_read": 1,
+  "engine": "extractive-fallback",
+  "verified": true,
+  "steps": [
+    {
+      "url": "https://en.wikipedia.org/wiki/Python_(programming_language)",
+      "final_url": "https://en.wikipedia.org/wiki/Python_(programming_language)",
+      "depth": 0,
+      "outcome": "read",
+      "chars": 44550,
+      "links_queued": 0
+    }
+  ],
+  "pages": [
+    {
+      "url": "https://en.wikipedia.org/wiki/Python_(programming_language)",
+      "final_url": "https://en.wikipedia.org/wiki/Python_(programming_language)",
+      "chars": 44550
+    }
+  ]
+}

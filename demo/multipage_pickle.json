@@ -1,0 +1,74 @@
+{
+  "request": "What is pickle used for?",
+  "answer": "marshal cannot be used to serialize user-defined classes and their instances. pickle can save and restore class instances transparently, however the class definition must be importable and live in the same module as when the object was pickled.",
+  "citations": [
+    {
+      "url": "https://docs.python.org/3/library/pickle.html",
+      "quote": "marshal cannot be used to serialize user-defined classes and their instances. pickle can save and restore class instances transparently, however the class definition must be importable and live in the same module as when the object was pickled."
+    }
+  ],
+  "citations_found": 1,
+  "citations_dropped": 0,
+  "pages_read": 4,
+  "engine": "extractive-fallback",
+  "verified": true,
+  "steps": [
+    {
+      "url": "https://docs.python.org/3/library/json.html",
+      "final_url": "https://docs.python.org/3/library/json.html",
+      "depth": 0,
+      "outcome": "read",
+      "chars": 25007,
+      "links_queued": 36
+    },
+    {
+      "url": "https://docs.python.org/3/library/pickle.html",
+      "final_url": "https://docs.python.org/3/library/pickle.html",
+      "depth": 1,
+      "outcome": "read",
+      "chars": 43877,
+      "links_queued": 0,
+      "link_score": 0.7
+    },
+    {
+      "url": "https://docs.python.org/3/contents.html",
+      "final_url": "https://docs.python.org/3/contents.html",
+      "depth": 1,
+      "outcome": "read",
+      "chars": 97229,
+      "links_queued": 0,
+      "link_score": 0.0
+    },
+    {
+      "url": "https://docs.python.org/3/library/email.iterators.html",
+      "final_url": "https://docs.python.org/3/library/email.iterators.html",
+      "depth": 1,
+      "outcome": "read",
+      "chars": 2080,
+      "links_queued": 0,
+      "link_score": 0.0
+    }
+  ],
+  "pages": [
+    {
+      "url": "https://docs.python.org/3/library/json.html",
+      "final_url": "https://docs.python.org/3/library/json.html",
+      "chars": 25007
+    },
+    {
+      "url": "https://docs.python.org/3/library/pickle.html",
+      "final_url": "https://docs.python.org/3/library/pickle.html",
+      "chars": 43877
+    },
+    {
+      "url": "https://docs.python.org/3/contents.html",
+      "final_url": "https://docs.python.org/3/contents.html",
+      "chars": 97229
+    },
+    {
+      "url": "https://docs.python.org/3/library/email.iterators.html",
+      "final_url": "https://docs.python.org/3/library/email.iterators.html",
+      "chars": 2080
+    }
+  ]
+}

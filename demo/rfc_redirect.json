@@ -1,0 +1,32 @@
+{
+  "request": "What does the 404 status code mean?",
+  "answer": "If the server does not wish to make this information available to the client, the status code 404 (Not Found) can be used instead.",
+  "citations": [
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc2616.txt",
+      "quote": "If the server does not wish to make this information available to the client, the status code 404 (Not Found) can be used instead."
+    }
+  ],
+  "citations_found": 1,
+  "citations_dropped": 0,
+  "pages_read": 1,
+  "engine": "extractive-fallback",
+  "verified": true,
+  "steps": [
+    {
+      "url": "https://www.ietf.org/rfc/rfc2616.txt",
+      "final_url": "https://www.rfc-editor.org/rfc/rfc2616.txt",
+      "depth": 0,
+      "outcome": "read",
+      "chars": 368796,
+      "links_queued": 0
+    }
+  ],
+  "pages": [
+    {
+      "url": "https://www.ietf.org/rfc/rfc2616.txt",
+      "final_url": "https://www.rfc-editor.org/rfc/rfc2616.txt",
+      "chars": 368796
+    }
+  ]
+}
